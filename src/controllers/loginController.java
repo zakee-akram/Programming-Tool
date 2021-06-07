@@ -26,7 +26,7 @@ public class loginController {
     @FXML
     void login(ActionEvent event) throws IOException {
         if(!passwordField.getText().isEmpty()&& !usernameField.getText().isEmpty()){
-            //Redirect To Menu Page
+            //Redirect To Menu Page if Successful.
             FXMLLoader loader  = new FXMLLoader(getClass().getResource("/menu.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
