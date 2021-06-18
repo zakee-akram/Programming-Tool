@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,4 +41,21 @@ public class loginController {
             System.out.println("Invalid Details");
         }
     }
+    @FXML
+    private Button RegisterButton;
+    @FXML
+    void Register(ActionEvent event) throws IOException{
+        //Change to Register Account Page.
+        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/register.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        Stage currentStage = (Stage) usernameField.getScene().getWindow();
+        currentStage.close();
+
+
+    }
+
 }
