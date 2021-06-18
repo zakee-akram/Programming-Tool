@@ -13,15 +13,15 @@
 
 <AnchorPane prefHeight="689.0" prefWidth="1194.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.menuController">
    <children>
-      <Label layoutX="1069.0" layoutY="35.0" text="UserName" textFill="#fafafa">
+      <Label fx:id="userName" layoutX="1069.0" layoutY="35.0" text="UserName" textFill="#fafafa">
          <font>
             <Font name="Arial" size="17.0" />
          </font></Label>
-      <Circle fill="DODGERBLUE" layoutX="1028.0" layoutY="45.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
-      <ComboBox layoutX="558.0" layoutY="33.0" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: #eeeeee;" />
+      <Circle fx:id="userImage" fill="DODGERBLUE" layoutX="1028.0" layoutY="45.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
+      <ComboBox fx:id="projectSelection" layoutX="533.0" layoutY="33.0" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: #eeeeee;" />
       <Pane prefHeight="689.0" prefWidth="136.0" style="-fx-background-color: #424242;">
          <children>
-            <Button alignment="CENTER" layoutX="-6.0" layoutY="345.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #424242;" text="               Tickets" textFill="#fafafa">
+            <Button fx:id="ticketsButton" alignment="CENTER" layoutX="-6.0" layoutY="345.0" mnemonicParsing="false" onAction="#tickets" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #424242;" text="               Tickets" textFill="#fafafa">
                <font>
                   <Font size="17.0" />
                </font>
@@ -32,22 +32,22 @@
                </font>
             </Label>
             <Line endX="50.0" layoutX="100.0" layoutY="85.0" startX="-100.0" stroke="#00000096" />
-            <Button layoutX="15.0" layoutY="123.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="121.0" style="-fx-background-color: #424242;" text="            Tasks" textFill="#fafafa">
+            <Button fx:id="taskButton" layoutX="15.0" layoutY="123.0" mnemonicParsing="false" onAction="#tasks" prefHeight="45.0" prefWidth="121.0" style="-fx-background-color: #424242;" text="            Tasks" textFill="#fafafa">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="41.0" fitWidth="42.0" layoutX="14.0" layoutY="125.0" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="9.0" layoutY="120.0" preserveRatio="true">
                <image>
-                  <Image url="@menuIcon.png" />
+                  <Image url="@tasks.png" />
                </image>
             </ImageView>
-            <Button layoutX="9.0" layoutY="227.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="121.0" style="-fx-background-color: #424242;" text="            Docs" textFill="#fafafa">
+            <Button fx:id="docsButton" layoutX="9.0" layoutY="230.0" mnemonicParsing="false" onAction="#docs" prefHeight="45.0" prefWidth="121.0" style="-fx-background-color: #424242;" text="            Docs" textFill="#fafafa">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="45.0" fitWidth="71.0" layoutX="12.0" layoutY="227.0" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="9.0" layoutY="227.0" preserveRatio="true">
                <image>
                   <Image url="@document.png" />
                </image>
@@ -57,22 +57,22 @@
                   <Image url="@ticket.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER" layoutX="1.0" layoutY="467.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="136.0" style="-fx-background-color: #424242;" text="             Notes" textFill="#fafafa">
+            <Button fx:id="notesButton" alignment="CENTER" layoutX="2.0" layoutY="457.0" mnemonicParsing="false" onAction="#notes" prefHeight="45.0" prefWidth="136.0" style="-fx-background-color: #424242;" text="             Notes" textFill="#fafafa">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="51.0" fitWidth="41.0" layoutX="14.0" layoutY="466.0" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="42.0" layoutX="14.0" layoutY="455.0" preserveRatio="true">
                <image>
                   <Image url="@notes.png" />
                </image>
             </ImageView>
-            <Button alignment="CENTER" layoutY="584.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #424242;" text="           Settings" textFill="#fafafa">
+            <Button fx:id="settingButton" alignment="CENTER" layoutY="573.0" mnemonicParsing="false" onAction="#setting" prefHeight="45.0" prefWidth="151.0" style="-fx-background-color: #424242;" text="           Settings" textFill="#fafafa">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="9.0" layoutY="581.0" preserveRatio="true">
+            <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="9.0" layoutY="570.0" preserveRatio="true">
                <image>
                   <Image url="@setting.png" />
                </image>
