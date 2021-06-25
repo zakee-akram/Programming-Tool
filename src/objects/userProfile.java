@@ -3,22 +3,14 @@ package objects;
 import java.util.ArrayList;
 
 public class userProfile {
-
-    private int user;
+    private user currentUser;
     private ArrayList<String> projects;
     private ArrayList<String> dates;
-    public userProfile (int user, ArrayList<String> projects , ArrayList<String> dates){
-        this.user = user;
+
+    public userProfile(user currentUser, ArrayList<String> projects, ArrayList<String> dates) {
+        this.currentUser = currentUser;
         this.projects = projects;
         this.dates = dates;
-    }
-
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
     }
 
     public ArrayList<String> getProjects() {
@@ -35,5 +27,13 @@ public class userProfile {
 
     public void setDates(ArrayList<String> dates) {
         this.dates = dates;
+    }
+
+    public user getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(user currentUser) {
+        this.currentUser = currentUser;
     }
 }

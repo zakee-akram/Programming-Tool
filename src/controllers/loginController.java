@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -30,6 +31,8 @@ public class loginController {
     @FXML
     private Button loginButton;
     private user loggedInUser;
+    @FXML
+    private Label prompt;
 
     @FXML
     void login(ActionEvent event) throws IOException {
@@ -43,7 +46,12 @@ public class loginController {
                     loggedInUser = new user(resultSet.getInt("Id"), resultSet.getString("Username"),
                             resultSet.getString("FirstName"), resultSet.getString("Password"), resultSet.getString("Email"), resultSet.getString("SecondName"));
                 }
-                //Basic Test That Data Has Passed Through
+                if (loggedInUser != null) {
+                    redirect();
+                } else {
+                    prompt.setText("INVALID DETAILS!!!");
+                }
+                //Basic Test That Checks If Data Has Passed Through
 //                System.out.println(loggedInUser.getId());
 //                System.out.println(loggedInUser.getFirstName());
 //                System.out.println(loggedInUser.getEmail());
@@ -65,9 +73,12 @@ public class loginController {
         //Redirect To Menu Page if Successful.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/menu.fxml"));
         Parent root = loader.load();
+        menuController menuC = loader.getController();
+        menuC.setData(loggedInUser);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
+        scene.getStylesheets().add("menu.css");
         stage.show();
         Stage currentStage = (Stage) usernameField.getScene().getWindow();
         currentStage.close();

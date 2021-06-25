@@ -1,0 +1,6 @@
+System Overview: 
+Tasks:
+ - Tasks Assigned. Possible Form Groups And Assign Tasks. 
+ - Docs. Saved Documents. Shared Documents.
+ - Tickets. Issues or Problems. Things that need to be solved. Can be raised by someone else. 
+ - Random Notes that can be saved.

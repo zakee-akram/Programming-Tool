@@ -1,12 +1,15 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import objects.task;
+import objects.user;
 import objects.userProfile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -24,8 +27,9 @@ import java.util.ResourceBundle;
 
 public class menuController implements Initializable {
     //Logged In User Profile:
-    private userProfile currentUser;
-
+    private user currentUser;
+    //Logged In User Projects And Info
+    private userProfile userProjects;
     //FXML Objects Connection:
     @FXML
     private VBox menuBox;
@@ -38,7 +42,7 @@ public class menuController implements Initializable {
     @FXML
     private Circle userImage;
     @FXML
-    private ComboBox<?> projectSelection;
+    private ComboBox<String> projectSelection;
     @FXML
     private Button ticketsButton;
     @FXML
@@ -101,35 +105,92 @@ public class menuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
+    //Passes Parameter From Other Controller And Runs Some Form Setup Code:
+    public void setData(user currentUser) {
+        this.currentUser = currentUser;
+        populateComboBox();
+        userName.setText(currentUser.getUsername());
     }
 
     private void populateComboBox() {
         //Adding User Projects To The Project Selection.
-        int testUser = 1;
         ArrayList<String> tempProjects = new ArrayList<>();
         ArrayList<String> tempCreation = new ArrayList<>();
         try (Connection connection = ProgrammingTool.getConnection()) {
             PreparedStatement pstmt = connection.prepareStatement("SELECT ProjectName,CreationDate FROM Projects WHERE User = ? ");
-            pstmt.setInt(1, testUser);
+            pstmt.setInt(1, currentUser.getId());
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 tempProjects.add(resultSet.getString("ProjectName"));
                 tempCreation.add(resultSet.getString("CreationDate"));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
-        currentUser = new userProfile(testUser, tempProjects, tempCreation);
-        test();
+        userProjects = new userProfile(currentUser, tempProjects, tempCreation);
+        projectSelection.getItems().clear();
+        ;
+        projectSelection.getItems().addAll(userProjects.getProjects());
     }
 
     public void test() {
-        System.out.println(currentUser.getDates());
-        System.out.println(currentUser.getProjects());
-        System.out.println(currentUser.getUser());
+        System.out.println(userProjects.getDates());
+        System.out.println(userProjects.getProjects());
+        System.out.println(userProjects.getCurrentUser().getUsername());
     }
-}
 
+
+    @FXML
+    void comboAction(ActionEvent event) {
+        updateTaskTable();
+    }
+
+    //Table View Data For Tasks
+    @FXML
+    private TableView<task> taskTable;
+    @FXML
+    private TableColumn<task, Integer> TaskId;
+    @FXML
+    private TableColumn<task, String> Task;
+    @FXML
+    private TableColumn<task, String> DueDate;
+    @FXML
+    private TableColumn<task, Integer> Creator;
+    private ObservableList<task> taskList;
+
+    private void updateTaskTable() {
+        try (Connection connection = ProgrammingTool.getConnection()) {
+            this.taskList = FXCollections.observableArrayList();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Tasks WHERE ProjectName = ? ");
+            pstmt.setString(1, projectSelection.getValue());
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                this.taskList.add(new task(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5)));
+            }
+            resultSet.close();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+
+        this.TaskId.setCellValueFactory(new PropertyValueFactory<task, Integer>("TaskId"));
+        this.Task.setCellValueFactory(new PropertyValueFactory<task, String>("Task"));
+        this.DueDate.setCellValueFactory(new PropertyValueFactory<task, String>("DueDate"));
+        this.Creator.setCellValueFactory(new PropertyValueFactory<task, Integer>("Id"));
+
+        this.taskTable.setItems(this.taskList);
+    }
+
+
+}
+//    CREATE TABLE "Tasks" (
+//        "Id"	INTEGER NOT NULL,
+//        "TaskId"	INTEGER NOT NULL,
+//        "Task"	TEXT NOT NULL,
+//        "DueDate"	TEXT,
+//        FOREIGN KEY("Id") REFERENCES "Users"("Id"),
+//        PRIMARY KEY("TaskId" AUTOINCREMENT)
+//        );
 
 

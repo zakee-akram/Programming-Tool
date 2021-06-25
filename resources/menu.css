@@ -1,0 +1,16 @@
+.table-view {
+    -fx-background-color: #212121;
+    -fx-text-background-color: #fafafa;
+ }
+.table-row-cell{
+    -fx-background-color: #212121;
+}
+.table-view .column-header {
+    -fx-background-color:  #878787;
+ }
+ .table-view .table-column {
+    -fx-alignment: CENTER;
+ }
+ .table-row-cell {
+  -fx-table-cell-border-color: #878787;
+ }
